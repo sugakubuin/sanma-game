@@ -1,0 +1,385 @@
+.home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #1a1a3a;
+    overflow: hidden;
+    color: var(--color-text-primary);
+}
+
+/* Background */
+.home-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/backgrounds/home_bg_real.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px) brightness(0.6);
+    z-index: 0;
+    transform: scale(1.1);
+}
+
+/* Top Bar (Absolute Positioning) */
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 20;
+    pointer-events: none;
+    /* Layout container lets clicks pass through */
+}
+
+/* Profile Card */
+.profile-card {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* ギャップ拡大 */
+    padding: 0.8rem 1.5rem;
+    /* パディング拡大 */
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: all 0.1s;
+    min-width: 200px;
+    /* 幅確保 */
+}
+
+.profile-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.profile-card:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+.profile-avatar {
+    width: 42px;
+    /* アイコン拡大 */
+    height: 42px;
+    background: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.profile-name {
+    font-weight: 800;
+    font-size: 1.2rem;
+    /* フォント拡大 */
+    color: #000;
+}
+
+/* Settings Button */
+.settings-btn {
+    pointer-events: auto;
+    width: 56px;
+    /* 少し大きくしてプロフィールカードとバランス取る */
+    height: 56px;
+    background-color: #ffffff !important;
+    /* 強制的に白 */
+    border: 3px solid #000;
+    border-radius: 8px;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.1s;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+}
+
+.settings-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+    background-color: #f0f0f0 !important;
+}
+
+.settings-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Main Content */
+.home-content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5rem 2rem 2rem;
+    /* Top padding increased */
+}
+
+/* Sections */
+.title-section,
+.main-menu,
+.home-footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Title */
+.home-title {
+    font-size: 5rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.8),
+        0 0 20px rgba(255, 255, 255, 0.4),
+        2px 2px 0 #000;
+    text-align: center;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+/* Menu Buttons (Main) */
+.main-menu {
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0 2rem;
+    width: 320px;
+    height: 100px;
+    background: #fff;
+    border: 3px solid #000;
+    /* ボーダー色は共通でも良いがボタン色に合わせる場合は下で上書き */
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-decoration: none;
+    color: #000;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* アイコンなしなので中央揃え */
+    width: 100%;
+}
+
+.menu-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
+    filter: brightness(1.1);
+}
+
+.menu-btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
+}
+
+.menu-text {
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+.menu-text-sub {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.9);
+    /* 白背景ではなくなるため変更 */
+}
+
+/* Ranked button specific style: Red Gradient */
+.menu-btn.ranked {
+    background: linear-gradient(180deg, #ef5350 0%, #c62828 100%);
+    border-color: #8e0000;
+    color: #fff;
+    box-shadow: 6px 6px 0 #8e0000;
+}
+
+.menu-btn.ranked:hover {
+    background: linear-gradient(180deg, #ff867c 0%, #d32f2f 100%);
+    box-shadow: 8px 8px 0 #8e0000;
+}
+
+.menu-btn.ranked:active {
+    box-shadow: 2px 2px 0 #8e0000;
+}
+
+/* Friend button specific style: Green Gradient */
+.menu-btn.friend {
+    background: linear-gradient(180deg, #66bb6a 0%, #2e7d32 100%);
+    border-color: #005005;
+    color: #fff;
+    box-shadow: 6px 6px 0 #005005;
+}
+
+.menu-btn.friend:hover {
+    background: linear-gradient(180deg, #81c784 0%, #388e3c 100%);
+    box-shadow: 8px 8px 0 #005005;
+}
+
+.menu-btn.friend:active {
+    box-shadow: 2px 2px 0 #005005;
+}
+
+
+/* Footer Navigation (Sub Buttons) */
+.home-footer {
+    padding-bottom: 2rem;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: transparent;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.footer-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    min-width: 120px;
+    height: 50px;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #000;
+    font-weight: bold;
+    transition: all 0.1s;
+    box-shadow: 3px 3px 0 #000;
+}
+
+.footer-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 #000;
+    filter: brightness(1.1);
+}
+
+.footer-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 #000;
+}
+
+/* Color variations for footer buttons */
+.footer-btn.sub-friend {
+    background: #e3f2fd;
+    /* Light Blue */
+    color: #1565c0;
+    border-color: #1565c0;
+    box-shadow: 3px 3px 0 #1565c0;
+}
+
+.footer-btn.sub-friend:hover {
+    box-shadow: 5px 5px 0 #1565c0;
+}
+
+.footer-btn.sub-record {
+    background: #fff3e0;
+    /* Light Orange */
+    color: #ef6c00;
+    border-color: #ef6c00;
+    box-shadow: 3px 3px 0 #ef6c00;
+}
+
+.footer-btn.sub-record:hover {
+    box-shadow: 5px 5px 0 #ef6c00;
+}
+
+.footer-btn.sub-rules {
+    background: #e8f5e9;
+    /* Light Green */
+    color: #2e7d32;
+    border-color: #2e7d32;
+    box-shadow: 3px 3px 0 #2e7d32;
+}
+
+.footer-btn.sub-rules:hover {
+    box-shadow: 5px 5px 0 #2e7d32;
+}
+
+.footer-btn.sub-logout {
+    background: #fce4ec;
+    /* Light Pink */
+    color: #c2185b;
+    border-color: #c2185b;
+    box-shadow: 3px 3px 0 #c2185b;
+}
+
+.footer-btn.sub-logout:hover {
+    box-shadow: 5px 5px 0 #c2185b;
+}
+
+
+.footer-label {
+    font-size: 1rem;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    .home-title {
+        font-size: 3rem;
+    }
+
+    .menu-btn {
+        width: 280px;
+        height: 90px;
+        padding: 0 1rem;
+    }
+
+    .menu-text {
+        font-size: 1.5rem;
+    }
+
+    .footer-nav {
+        gap: 0.8rem;
+    }
+
+    .footer-btn {
+        min-width: 100px;
+        height: 44px;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    /* Responsive adjustments for Profile Card */
+    .profile-card {
+        padding: 0.5rem 1rem;
+        min-width: auto;
+    }
+
+    .profile-name {
+        font-size: 1rem;
+    }
+}

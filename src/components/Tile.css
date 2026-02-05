@@ -1,0 +1,107 @@
+.tile {
+    /* Use a simple persistent background for the tile "block" */
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow:
+        1px 1px 0 #bbb,
+        2px 2px 0 #aaa,
+        3px 3px 3px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    user-select: none;
+    overflow: hidden;
+    /* Ensure image doesn't overflow rounded corners */
+}
+
+/* Ensure the image fills the tile face */
+.tile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* or fill depending on asset aspect ratio */
+    display: block;
+}
+
+/* Sizes */
+.tile-small {
+    width: 24px;
+    height: 34px;
+}
+
+.tile-medium {
+    width: 40px;
+    height: 56px;
+}
+
+.tile-large {
+    width: 56px;
+    height: 78px;
+}
+
+/* States */
+.tile.clickable {
+    cursor: pointer;
+}
+
+.tile.clickable:hover {
+    transform: translateY(-4px);
+    /* subtler lift */
+    box-shadow:
+        1px 1px 0 #bbb,
+        2px 2px 0 #aaa,
+        3px 3px 0 #999,
+        4px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.tile.selected {
+    transform: translateY(-10px);
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        0 0 0 2px var(--color-gold);
+    /* Highlight border */
+    border-color: var(--color-gold);
+    z-index: 10;
+}
+
+/* Tile Back (for face-down tiles) */
+.tile-back {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ea9423 0%, #d47e17 100%);
+    /* Standard Orange/Yellow back? or User prefers Green? */
+    /* Let's keep a standard "Bamboo" or "Blue" back if preferred. 
+       Sanma often uses Yellow/Blue. Let's stick to a nice Blue or Orange. 
+       Previous was Green. Let's use a rich blue-ish texture or just Green for now. */
+    background: #004d40;
+    /* Dark Green */
+    border-radius: 2px;
+    border: 2px solid white;
+    /* Inner border */
+    box-sizing: border-box;
+}
+
+/* Red / Gold / Pochi Highlighting via Border/Glow ONLY */
+/* (The Image has the face color, so we just add external cues) */
+
+.tile.gold-dora {
+    box-shadow: 0 0 8px 2px gold;
+    border-color: gold;
+}
+
+.tile.white-pochi {
+    box-shadow: 0 0 8px 1px #ff69b4;
+    border-color: #ff69b4;
+}
+
+/* Riichi Rotation */
+.tile.riichi {
+    transform: rotate(90deg) translateY(-10px);
+    /* Keep lift if needed, or just rotate */
+    margin: 0 5px;
+}
+
+/* If already selected + riichi, might need coordination. */

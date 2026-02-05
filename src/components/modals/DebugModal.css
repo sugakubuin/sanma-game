@@ -1,0 +1,135 @@
+.debug-modal {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.debug-section {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.debug-section:last-child {
+    border-bottom: none;
+}
+
+.debug-section h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: #ffd700;
+}
+
+.debug-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.debug-btn {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.debug-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.debug-btn.active {
+    background: #ffd700;
+    color: #000;
+    border-color: #ffd700;
+}
+
+.debug-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.form-group select {
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+.debug-add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.debug-add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.no-melds {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+.melds-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.meld-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.meld-info {
+    color: #fff;
+}
+
+.meld-remove-btn {
+    padding: 6px;
+    background: rgba(244, 67, 54, 0.8);
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.meld-remove-btn:hover {
+    background: rgba(244, 67, 54, 1);
+    transform: scale(1.1);
+}

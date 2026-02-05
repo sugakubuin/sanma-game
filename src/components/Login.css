@@ -1,0 +1,223 @@
+.login {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 2rem;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Background */
+.login-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.4;
+}
+
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(100, 149, 237, 0.5) 0%, transparent 70%);
+    top: 20%;
+    left: 30%;
+    animation: float 8s ease-in-out infinite;
+}
+
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(147, 112, 219, 0.5) 0%, transparent 70%);
+    bottom: 20%;
+    right: 20%;
+    animation: float 6s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-20px) scale(1.05);
+    }
+}
+
+.sakura-petals {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 182, 193, 0.15) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(255, 182, 193, 0.1) 0%, transparent 25%);
+}
+
+/* Logo */
+.login-logo {
+    text-align: center;
+    margin-bottom: 3rem;
+    z-index: 1;
+    animation: slideUp 0.8s ease forwards;
+}
+
+.logo-text {
+    font-size: 4rem;
+    font-weight: 900;
+    margin: 0;
+    line-height: 1.2;
+    /* グラデーションテキスト */
+    background: linear-gradient(180deg, #c41e3a 0%, #8b0000 50%, #c41e3a 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 8px rgba(139, 0, 0, 0.5));
+}
+
+.logo-char {
+    display: none;
+    /* 使用しない */
+}
+
+.logo-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    letter-spacing: 0.1em;
+    margin-top: 0.5rem;
+    font-weight: bold;
+}
+
+/* Login Actions */
+.login-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    z-index: 1;
+    animation: slideUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+.login-btn {
+    padding: 1rem 4rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.login-btn.primary {
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+    color: #1a1a1a;
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.4);
+}
+
+.login-btn.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(212, 168, 83, 0.5);
+}
+
+.auto-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+}
+
+.auto-login input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--color-gold);
+    border: 1px solid var(--color-gold);
+}
+
+/* Login Options */
+.login-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    z-index: 1;
+    animation: fadeIn 0.8s ease forwards;
+    animation-delay: 0.4s;
+    opacity: 0;
+}
+
+.options-label {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.social-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-btn {
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.social-icon {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.social-btn.google .social-icon {
+    color: #4285f4;
+}
+
+/* Version */
+.login-version {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .logo-text {
+        font-size: 4rem;
+    }
+
+    .login-btn {
+        padding: 0.875rem 3rem;
+        font-size: 1.1rem;
+    }
+}

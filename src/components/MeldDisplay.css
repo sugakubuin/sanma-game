@@ -1,0 +1,68 @@
+.meld-display {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.meld-group {
+    display: flex;
+    gap: 2px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.meld-tile {
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.meld-tile-rotated {
+    transform: rotate(-90deg);
+    margin: 12px -8px;
+}
+
+/* 位置別のスタイル調整 */
+.meld-display-bottom {
+    justify-content: flex-start;
+}
+
+.meld-display-left,
+.meld-display-right {
+    flex-direction: column;
+}
+
+/* 小さな牌用の調整 */
+.meld-tile .tile-small {
+    width: 28px;
+    height: 38px;
+}
+
+/* 加槓用のスタイル */
+.kakan-container {
+    position: relative;
+    display: flex;
+    gap: 2px;
+}
+
+.kakan-overlay {
+    position: absolute;
+    z-index: 10;
+    /* 横向き牌の上に重ねる */
+}
+
+/* 加槓の重ね位置 - ポンでどの位置が横向きだったかに応じて配置 */
+.kakan-position-0 {
+    left: 4px;
+    top: -8px;
+}
+
+.kakan-position-1 {
+    left: calc(28px + 6px);
+    top: -8px;
+}
+
+.kakan-position-2 {
+    left: calc(56px + 8px);
+    top: -8px;
+}

@@ -1,0 +1,348 @@
+/* ===================================
+   三麻 (Sanma) - Global Styles
+   雀魂風プレミアムデザイン
+=================================== */
+
+/* CSS Variables */
+:root {
+  /* Primary Colors - Deep Blue/Purple Theme */
+  --color-bg-primary: #0a0e1a;
+  --color-bg-secondary: #121829;
+  --color-bg-tertiary: #1a2240;
+
+  /* Accent Colors */
+  --color-gold: #d4a853;
+  --color-gold-light: #f0d090;
+  --color-gold-dark: #9a7834;
+
+  /* Text Colors */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #a0aec0;
+  --color-text-muted: #6b7280;
+
+  /* Status Colors */
+  --color-success: #48bb78;
+  --color-danger: #f56565;
+  --color-warning: #ed8936;
+  --color-info: #4299e1;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+  /* Mahjong Tile Colors */
+  --tile-bg: #f5f0e6;
+  --tile-border: #d4c5a9;
+  --tile-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+  /* Sizes */
+  --tile-width: 40px;
+  --tile-height: 56px;
+  --tile-width-mobile: 28px;
+  --tile-height-mobile: 40px;
+
+  /* Animation */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+}
+
+/* Reset & Base Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 50%, var(--color-bg-tertiary) 100%);
+  background-attachment: fixed;
+  color: var(--color-text-primary);
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+/* Links */
+a {
+  color: var(--color-gold);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-gold-light);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+  color: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(212, 168, 83, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 168, 83, 0.4);
+}
+
+.btn-secondary {
+  background: var(--glass-bg);
+  color: var(--color-text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--glass-shadow);
+  padding: 1.5rem;
+}
+
+/* Gold Text */
+.text-gold {
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-gold-dark) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glow Effect */
+.glow {
+  text-shadow: 0 0 10px rgba(212, 168, 83, 0.5),
+    0 0 20px rgba(212, 168, 83, 0.3),
+    0 0 30px rgba(212, 168, 83, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn var(--transition-normal) forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp var(--transition-normal) forwards;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-tertiary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ===================================
+   スクロール禁止・画面収まり設定
+   全画面でスクロール不要を保証
+=================================== */
+
+/* 全てのコンテナをビューポート内に収める */
+.page-container,
+.screen-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================================
+   モバイル横画面強制
+   縦画面時に回転を促すオーバーレイを表示
+=================================== */
+
+/* モバイル縦画面検出 */
+@media screen and (max-width: 768px) and (orientation: portrait) {
+
+  /* 縦画面時のコンテンツを非表示 */
+  #root>* {
+    display: none !important;
+  }
+
+  /* 回転促進オーバーレイを表示 */
+  #root::before {
+    content: '';
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+    z-index: 99999;
+  }
+
+  #root::after {
+    content: '画面を横向きに回転してください';
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+    color: var(--color-gold);
+    font-size: 1.5rem;
+    font-weight: 600;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 100000;
+    animation: pulse 2s infinite;
+  }
+}
