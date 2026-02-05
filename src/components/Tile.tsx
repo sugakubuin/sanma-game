@@ -27,7 +27,6 @@ function Tile({
     isRed = false,
     isGold = false,
     isWhitePochi = false,
-    isFlower = false,
     isRiichi = false,
     flowerType, // Prop added
     onClick

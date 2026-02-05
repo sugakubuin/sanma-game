@@ -17,6 +17,7 @@ import {
     CPU_REACTION_DELAY,
 } from '../game'
 import { drawRinshanTile, extractFlower } from '../game/wall'
+import { updateGameState } from '../firebase/service'
 
 // ===========================================
 // ストア型定義
@@ -28,8 +29,15 @@ interface GameStore {
     humanPlayerIndex: number
     isProcessing: boolean
 
+    // オンライン対戦用
+    isOnline: boolean
+    isHost: boolean
+    roomId: string | null
+
     // アクション
     initGame: (playerName: string) => void
+    initOnlineGame: (roomId: string, isHost: boolean, initialState: GameState, playerIndex: number) => void
+    syncGameState: (newState: GameState) => void
     startGame: () => void
     executePlayerAction: (action: GameAction) => void
     extractFlowerFromPlayer: (playerIndex: number) => void
@@ -60,6 +68,12 @@ function processCpuTurnHelper(
         return
     }
 
+    // オンラインかつゲストならCPU処理はしない（ホストに任せる）
+    if (get().isOnline && !get().isHost) {
+        set({ isProcessing: false })
+        return
+    }
+
     // ゲームが終了していれば終了
     if (gameState.phase !== 'playing') {
         set({ isProcessing: false })
@@ -81,6 +95,11 @@ function processCpuTurnHelper(
 
         const newState = executeAction(currentState, action)
         set({ gameState: newState })
+
+        // オンラインなら同期
+        if (get().isOnline && get().roomId) {
+            updateGameState(get().roomId!, newState)
+        }
 
         // アクション表示 (CPU用)
         const { showAction } = get()
@@ -143,6 +162,11 @@ function processAfterDiscardHelper(
             const newState = executeAction(gameState, cpuAction, i)
             set({ gameState: newState })
 
+            // オンラインなら同期
+            if (get().isOnline && get().roomId) {
+                updateGameState(get().roomId!, newState)
+            }
+
             setTimeout(() => {
                 const state = get().gameState
                 if (state) {
@@ -157,12 +181,23 @@ function processAfterDiscardHelper(
     const newState = advanceToNextPlayer(gameState)
     set({ gameState: newState })
 
+    // オンラインなら同期
+    if (get().isOnline && get().roomId) {
+        updateGameState(get().roomId!, newState)
+    }
+
     // 次のプレイヤーのターン
     if (newState.turnPhase === 'draw') {
         if (newState.currentPlayer === humanPlayerIndex) {
             // 人間のツモ
             const drawnState = processDraw(newState)
             set({ gameState: drawnState, isProcessing: false })
+
+            // オンライン同期はここではしない（人間がアクションしてからにするか、ツモった状態も同期するか）
+            // ツモった状態も同期すべき
+            if (get().isOnline && get().roomId) {
+                updateGameState(get().roomId!, drawnState)
+            }
         } else {
             // CPUのターン
             setTimeout(() => {
@@ -180,10 +215,30 @@ export const useGameStore = create<GameStore>((set, get) => ({
     gameState: null,
     humanPlayerIndex: 0,
     isProcessing: false,
+    isOnline: false,
+    isHost: false,
+    roomId: null,
 
     initGame: (playerName: string) => {
         const state = initializeGame([playerName, 'CPU 1', 'CPU 2'])
-        set({ gameState: state, humanPlayerIndex: 0 })
+        set({ gameState: state, humanPlayerIndex: 0, isOnline: false, isHost: true })
+    },
+
+    initOnlineGame: (roomId, isHost, initialState, playerIndex) => {
+        set({
+            gameState: initialState,
+            humanPlayerIndex: playerIndex,
+            isOnline: true,
+            isHost,
+            roomId
+        })
+    },
+
+    syncGameState: (newState) => {
+        // 外部（Firestore）からの更新を適用
+        // 自分のアクション直後などで競合する可能性があるが、
+        // 基本的にサーバー（ホスト）の正解を受け入れる
+        set({ gameState: newState })
     },
 
     startGame: () => {
@@ -209,6 +264,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
         const newState = executeAction(gameState, action)
         set({ gameState: newState })
+
+        // オンラインなら同期
+        if (get().isOnline && get().roomId) {
+            updateGameState(get().roomId!, newState)
+        }
 
         // アクション表示
         if (action.type === 'PON') {
@@ -300,6 +360,11 @@ export const useGameStore = create<GameStore>((set, get) => ({
         newPlayers[playerIndex] = updatedPlayer
 
         set({ gameState: { ...gameState, players: newPlayers } })
+
+        // オンラインなら同期
+        if (get().isOnline && get().roomId) {
+            updateGameState(get().roomId!, { ...gameState, players: newPlayers })
+        }
 
         // アクション表示
         get().showAction('FLOWER', playerIndex)

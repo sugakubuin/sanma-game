@@ -45,18 +45,24 @@
     padding: 0.8rem 1.5rem;
     /* パディング拡大 */
     background: #fff;
-    border: 3px solid #000;
-    border-radius: 8px;
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+    padding: 0.75rem 1.5rem 0.75rem 1rem;
+    background: rgba(40, 44, 52, 0.85);
+    /* Slightly clearer dark */
+    backdrop-filter: blur(12px);
+    border-radius: 50px;
+    /* Pill shape */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     cursor: pointer;
-    transition: all 0.1s;
-    min-width: 200px;
-    /* 幅確保 */
+    transition: all 0.3s ease;
+    min-width: 220px;
 }
 
 .profile-card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.5);
+    background: rgba(50, 54, 62, 0.95);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .profile-card:active {
@@ -65,23 +71,64 @@
 }
 
 .profile-avatar {
-    width: 42px;
-    /* アイコン拡大 */
-    height: 42px;
-    background: #000;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 2px 8px rgba(118, 75, 162, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     color: #fff;
     flex-shrink: 0;
 }
 
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+}
+
 .profile-name {
-    font-weight: 800;
-    font-size: 1.2rem;
-    /* フォント拡大 */
-    color: #000;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2px;
+}
+
+.profile-details-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.profile-rank {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #ffd700;
+    /* Gold */
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+.profile-exp-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    flex: 1;
+    overflow: hidden;
+}
+
+.profile-exp-fill {
+    height: 100%;
+    background: #4cd964;
+    border-radius: 2px;
+    box-shadow: 0 0 5px #4cd964;
 }
 
 /* Settings Button */

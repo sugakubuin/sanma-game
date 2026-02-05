@@ -1,0 +1,49 @@
+/* Waiting Room Modal/Overlay logic could go here or be inline in Home */
+.lobby-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.lobby-container {
+  background: var(--surface-1);
+  padding: 2rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  border: 1px solid var(--border-light);
+}
+.lobby-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.room-code {
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+  color: var(--primary);
+  margin: 1rem 0;
+  user-select: text;
+}
+.player-list {
+  margin: 2rem 0;
+  text-align: left;
+}
+.player-item {
+  padding: 1rem;
+  background: var(--surface-2);
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}

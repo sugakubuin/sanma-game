@@ -6,7 +6,6 @@ import {
     History,
     BookOpen,
     LogOut,
-    Bug,
 } from 'lucide-react'
 import './Home.css'
 import {
@@ -21,11 +20,13 @@ import {
 } from './modals/AppModals'
 
 interface HomeProps {
+    userName: string
+    onUpdateName: (name: string) => Promise<void>
     onFriendMatch: () => void
     onLogout: () => void
 }
 
-function HomeScreen({ onFriendMatch, onLogout }: HomeProps) {
+function HomeScreen({ userName, onUpdateName, onFriendMatch, onLogout }: HomeProps) {
     const [modals, setModals] = useState({
         profile: false,
         settings: false,
@@ -52,18 +53,21 @@ function HomeScreen({ onFriendMatch, onLogout }: HomeProps) {
             <div className="top-bar">
                 <div className="profile-card" onClick={() => toggleModal('profile', true)}>
                     <div className="profile-avatar">
-                        <User size={30} />
+                        <User size={32} color="#fff" />
                     </div>
                     <div className="profile-info">
-                        <span className="profile-name">プレイヤー</span>
+                        <span className="profile-name">{userName}</span>
+                        <div className="profile-details-row">
+                            <span className="profile-rank">初段</span>
+                            <div className="profile-exp-bar">
+                                <div className="profile-exp-fill" style={{ width: '45%' }} />
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <button className="settings-btn" title="設定" onClick={() => toggleModal('settings', true)}>
                     <Settings size={28} />
-                </button>
-                <button className="settings-btn" title="デバッグ" onClick={() => toggleModal('debug', true)}>
-                    <Bug size={28} />
                 </button>
             </div>
 
@@ -114,7 +118,15 @@ function HomeScreen({ onFriendMatch, onLogout }: HomeProps) {
             </div>
 
             {/* Modals */}
-            <ProfileModal isOpen={modals.profile} onClose={() => toggleModal('profile', false)} />
+            <ProfileModal
+                isOpen={modals.profile}
+                onClose={() => toggleModal('profile', false)}
+                userName={userName}
+                onUpdateName={async (name) => {
+                    await onUpdateName(name)
+                    toggleModal('profile', false)
+                }}
+            />
             <SettingsModal isOpen={modals.settings} onClose={() => toggleModal('settings', false)} />
             <RankedMatchModal isOpen={modals.ranked} onClose={() => toggleModal('ranked', false)} />
             <FriendListModal isOpen={modals.friendList} onClose={() => toggleModal('friendList', false)} />

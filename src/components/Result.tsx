@@ -1,4 +1,4 @@
-import { Crown, PartyPopper, User } from 'lucide-react'
+import { Crown, User } from 'lucide-react'
 import './Result.css'
 
 interface ResultProps {
@@ -7,18 +7,54 @@ interface ResultProps {
 }
 
 // Mock result data
+// Mock result data (Simulated)
+// In real app, this should come from GameStore
 const mockResults = [
-    { rank: 1, name: 'プレイヤー', score: 58000, diff: '+8000' },
-    { rank: 2, name: 'CPU-1', score: 48000, diff: '-2000' },
-    { rank: 3, name: 'CPU-2', score: 44000, diff: '-6000' },
+    { rank: 1, name: 'プレイヤー', score: 65000, chips: 5 },
+    { rank: 2, name: 'CPU-1', score: 45000, chips: -2 },
+    { rank: 3, name: 'CPU-2', score: 40000, chips: -3 },
 ]
 
-const mockStats = {
-    wins: 3,
-    dealIns: 1,
-    riichi: 4,
-    maxHan: 6,
+const calculatePoints = (results: typeof mockResults) => {
+    // 3-player Mahjong Point Calculation (50000 origin/return)
+    // Uma: 2nd place > 50000 ? [+30, +10, -40] : [+40, -10, -30]
+
+    const rank2 = results.find(r => r.rank === 2);
+    const isRank2Floating = (rank2?.score || 0) >= 50000;
+
+    return results.map(player => {
+        // Base point: (Score - Origin) / 1000
+        const basePoint = (player.score - 50000) / 1000;
+
+        // Uma
+        let uma = 0;
+        if (isRank2Floating) {
+            if (player.rank === 1) uma = 30;
+            else if (player.rank === 2) uma = 10;
+            else if (player.rank === 3) uma = -40;
+        } else {
+            if (player.rank === 1) uma = 40;
+            else if (player.rank === 2) uma = -10;
+            else if (player.rank === 3) uma = -30;
+        }
+
+        // Chip point: Chips * 5
+        const chipPoint = player.chips * 5;
+
+        // Total
+        const totalPoint = basePoint + uma + chipPoint;
+
+        return {
+            ...player,
+            totalPoint: totalPoint,
+            totalPointFormatted: totalPoint > 0 ? `+${totalPoint}` : `${totalPoint}`
+        };
+    });
 }
+
+const finalResults = calculatePoints(mockResults);
+
+
 
 function Result({ onReturnToLobby, onPlayAgain }: ResultProps) {
     return (
@@ -27,54 +63,57 @@ function Result({ onReturnToLobby, onPlayAgain }: ResultProps) {
                 <h1 className="result-title text-gold glow">対局結果</h1>
             </header>
 
-            {/* Ranking */}
-            <section className="ranking-section">
-                {mockResults.map((player, index) => (
+            {/* Ranking Vertical */}
+            <section className="ranking-list">
+                {finalResults.map((player, index) => (
                     <div
                         key={player.rank}
-                        className={`ranking-card rank-${player.rank}`}
-                        style={{ animationDelay: `${index * 0.1}s` }}
+                        className={`result-row rank-${player.rank}`}
+                        style={{ animationDelay: `${index * 0.15}s` }}
                     >
-                        {player.rank === 1 && <div className="crown"><Crown size={24} /></div>}
-                        <div className="ranking-avatar">
-                            <div className="avatar-inner">
-                                {player.rank === 1 ? <PartyPopper size={24} /> : <User size={24} />}
-                            </div>
+                        {/* Rank Badge */}
+                        <div className="rank-badge">
+                            {player.rank === 1 && <Crown size={20} className="crown-icon" />}
+                            <span className="rank-number">{player.rank}</span>
                         </div>
-                        <div className="ranking-position">{player.rank}位</div>
-                        <div className="ranking-name">{player.name}</div>
-                        <div className="ranking-score">
-                            <span className="score-value">{player.score.toLocaleString()}</span>
-                            <span className={`score-diff ${player.diff.startsWith('+') ? 'positive' : 'negative'}`}>
-                                {player.diff}
-                            </span>
+
+                        {/* Avatar & Name */}
+                        <div className="player-info">
+                            <div className="result-avatar">
+                                <User size={24} />
+                            </div>
+                            <div className="result-name">{player.name}</div>
+                        </div>
+
+                        {/* Metrics */}
+                        <div className="result-metrics">
+                            {/* Score */}
+                            <div className="metric-item score">
+                                <div className="metric-label">持ち点</div>
+                                <div className="metric-value">{player.score.toLocaleString()}</div>
+                            </div>
+
+                            {/* Chips */}
+                            <div className="metric-item chips">
+                                <div className="metric-label">祝儀</div>
+                                <div className={`metric-value ${player.chips >= 0 ? 'positive' : 'negative'}`}>
+                                    {player.chips >= 0 ? `+${player.chips}` : player.chips}枚
+                                </div>
+                            </div>
+
+                            {/* Total Points */}
+                            <div className="metric-item total">
+                                <div className="metric-label">トータル</div>
+                                <div className={`metric-value ${player.totalPoint >= 0 ? 'positive' : 'negative'}`}>
+                                    {player.totalPointFormatted}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 ))}
             </section>
 
-            {/* Statistics */}
-            <section className="stats-section glass-card">
-                <h2 className="stats-title">対局統計</h2>
-                <div className="stats-grid">
-                    <div className="stats-item">
-                        <span className="stats-label">和了回数</span>
-                        <span className="stats-value">{mockStats.wins}</span>
-                    </div>
-                    <div className="stats-item">
-                        <span className="stats-label">放銃回数</span>
-                        <span className="stats-value">{mockStats.dealIns}</span>
-                    </div>
-                    <div className="stats-item">
-                        <span className="stats-label">リーチ回数</span>
-                        <span className="stats-value">{mockStats.riichi}</span>
-                    </div>
-                    <div className="stats-item">
-                        <span className="stats-label">最大翻数</span>
-                        <span className="stats-value">{mockStats.maxHan}翻</span>
-                    </div>
-                </div>
-            </section>
+
 
             {/* Action Buttons */}
             <footer className="result-actions">

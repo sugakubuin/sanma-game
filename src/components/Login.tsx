@@ -25,7 +25,7 @@ function Login({ onLogin }: LoginProps) {
             {/* Login Button */}
             <div className="login-actions">
                 <button className="login-btn primary" onClick={onLogin}>
-                    ログイン
+                    Googleでログイン
                 </button>
                 <label className="auto-login">
                     <input type="checkbox" defaultChecked />
